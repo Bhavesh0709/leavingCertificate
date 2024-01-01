@@ -1,14 +1,11 @@
 import React from 'react';
-import Form from './Components/Form/Form';
+import ExternalRouter from './Components/routes';
 
 function App() {
     return (
         <div>
             <div className="App">
-                {/* <div className="container mt-5">
-                    <h3 className='text-center'>Hello World</h3>
-                </div> */}
-                <Form />
+                <ExternalRouter />
             </div>
         </div>
     );
