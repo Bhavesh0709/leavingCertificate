@@ -2,16 +2,20 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { INTERNAL_ROUTES, IRouteName } from './types';
 
-function Dropdown(props: any) {
-    const dropdownItems = props.dropdownItems;
-    const name1 = props.name;
+interface DropdownProps {
+    dropdownItems: IRouteName[],
+    dropdownHeader: string;
+}
+
+function Dropdown(props: DropdownProps) {
+    const { dropdownItems, dropdownHeader } = props;
     return (
         <>
             <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle"
                     href="#" id="navbarDropdown" role="button" 
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {name1}
+                    {dropdownHeader}
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                     {dropdownItems.map((component: IRouteName) => {
@@ -19,13 +23,12 @@ function Dropdown(props: any) {
                         const route = INTERNAL_ROUTES[component as unknown as IRouteName].route;
                         return (
                             <>
-                                <Link to={route} className='dropdown-item'>
+                                <Link to={route} className='dropdown-item' key={route}>
                                     {name}
                                 </Link>
                             </>
                         )
-                    })}
-                                
+                    })}       
                 </div>
             </li>      
         </>

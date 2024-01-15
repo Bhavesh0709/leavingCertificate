@@ -21,7 +21,7 @@ export const INTERNAL_ROUTES: Record<
         Component: React.FunctionComponent;
         isVisible: boolean;
         isDropDownContent: boolean;
-        dropdownComponents?: string[];
+        dropdownComponents?: IRouteName[];
     }
 > = {
     Create: {

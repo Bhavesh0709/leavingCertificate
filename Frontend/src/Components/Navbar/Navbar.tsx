@@ -1,10 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Dropdown from './Dropdown';
-import { INTERNAL_ROUTES, IRouteName } from './types'
+import { CompanyName, INTERNAL_ROUTES, IRouteName } from './types'
 
-function Navbar( props: any ) {
-    const brandName = props.brandNameVal;
+interface NavbarProps {
+    brandName: CompanyName;
+}
+
+function Navbar( props: NavbarProps ) {
+    const { brandName } = props
     return (
         <div>
             <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
@@ -31,7 +35,7 @@ function Navbar( props: any ) {
                                     <li key={index}>
                                         {dropdownItems ? (
                                             <Dropdown
-                                                name = {name}
+                                                dropdownHeader = {name}
                                                 dropdownItems = {dropdownItems}
                                             />
                                         ) : (

@@ -1,13 +1,15 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import Form from './Form/Form'
 import Navbar from './Navbar/Navbar'
 import { INTERNAL_ROUTES, IRouteName,CompanyName  } from './Navbar/types'
 const ExternalRouter = () => {
     const brandName: CompanyName = 'MVM';
     return (
         <>
-            <Navbar brandNameVal={brandName}/>
+            <Navbar brandName={brandName}/>
             <Routes>
+                <Route path='/' element={<Form />} />
                 {Object.keys(INTERNAL_ROUTES).map((internalRoute, index) => {
                     const Page = INTERNAL_ROUTES[internalRoute as unknown as IRouteName].Component;
                     return (
