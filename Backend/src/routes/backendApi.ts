@@ -3,6 +3,7 @@ import express from 'express';
 import { RouteRegistry } from "../controller/route-registry";
 
 const app = express();
+app.use(express.json());
 
 const registerFullPathRoute = (route: Route) => {
     if (route.method == HTTPMethod.GET) {
@@ -21,6 +22,10 @@ const registerFullPathRoute = (route: Route) => {
 const routeRegistry = new RouteRegistry();
 
 routeRegistry.getBirthDetailsRouteDefinitions().map((route) => {
+    registerFullPathRoute(route);
+})
+
+routeRegistry.getComplimentRouteDefinitions().map((route) => {
     registerFullPathRoute(route);
 })
 
