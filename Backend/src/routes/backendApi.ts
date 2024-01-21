@@ -29,4 +29,7 @@ routeRegistry.getComplimentRouteDefinitions().map((route) => {
     registerFullPathRoute(route);
 })
 
+routeRegistry.getDivisionRouteDefinitions().map((route) => {
+    registerFullPathRoute(route);
+})
 export default app;
