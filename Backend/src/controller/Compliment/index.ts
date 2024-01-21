@@ -1,6 +1,6 @@
 import ComplimentService from "../../service/Compliment";
 import { IRequest, IResponse } from "../../service/types";
-
+import { logger } from "../../logger/logger";
 export class ComplimentController {
     async addCompliment (req: IRequest, res: IResponse): Promise<IResponse> {
         try {
@@ -9,7 +9,7 @@ export class ComplimentController {
            const response = await complimentService.addCompliment(compliment);
            return res.status(200).json(response);
         } catch (error: any) {
-            console.error('>>> addCompliment error - ', error);
+            logger.error('>>> addCompliment error - ', error);
             return res.status(error.status).json(error);
         }
     }
@@ -20,7 +20,7 @@ export class ComplimentController {
            const response = await complimentService.getAllCompliments();
            return res.status(200).json(response);
         } catch (error: any) {
-            console.error('>>> getCompliment error - ', error);
+            logger.error('>>> getCompliment error - ', error);
             return res.status(error.status).json(error);
         }
     }

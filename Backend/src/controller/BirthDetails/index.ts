@@ -1,3 +1,4 @@
+import { logger } from "../../logger/logger";
 import BirthInfo from "../../service/BirthDetails";
 import { IRequest, IResponse } from "../../service/types";
 
@@ -8,7 +9,7 @@ export class BirthDetailsController {
            const response = await birthInfo.getAllDetails(); 
            return res.status(200).json(response);
         } catch (error: any) {
-            console.error('>>> getBirthInfo error - ', error);
+            logger.error('>>> getBirthInfo error - ', error);
             return res.status(error.status).json(error);
         }
     }
