@@ -1,3 +1,5 @@
+import { TSequelizeError } from "./types";
+
 export class FormatResponse {
     format(response) {
         const data: any[] = [];
@@ -10,5 +12,22 @@ export class FormatResponse {
             data.push(response.dataValues);
         }
         return data;
+    }
+    formatErrorResponse(error: TSequelizeError | any): { status: string, data: any } {
+        let status;
+        let data;
+        if (error.status) {
+            status = error.status;
+            data = error;
+        } else {
+            const arr: Record<string,unknown>[] = [];
+            const errors = error.errors;
+            status = 400;
+            errors.map((e) => {
+                arr.push(e);
+            })
+            data = arr;
+        }
+        return {status: status, data: data};
     }
 }

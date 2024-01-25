@@ -11,6 +11,11 @@ export class RouteRegistry {
                 fullPath: '/getBirthInfo',
                 method: HTTPMethod.GET,
                 controllerFunction: birthDetailsController.getBirthInfo.bind(birthDetailsController)
+            },
+            {
+                fullPath: '/addBirthInfo',
+                method: HTTPMethod.POST,
+                controllerFunction: birthDetailsController.addBirthInfo.bind(birthDetailsController)
             }
         ];
     }
