@@ -6,7 +6,7 @@ class Master extends Model {}
 Master.init(
     {
         aadharNo: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false
         },
@@ -59,7 +59,7 @@ Master.init(
             type: DataTypes.STRING,
             allowNull: true
         },
-        dateOfAdmisison: {
+        dateOfAdmission: {
             type: DataTypes.DATEONLY,
             allowNull: false
         },
@@ -94,8 +94,8 @@ Master.init(
     },
     {
         sequelize,
-        modelName: 'Master',
-        tableName: 'master'
+        modelName: 'MasterDB',
+        tableName: 'masterDB'
     }
 );
 

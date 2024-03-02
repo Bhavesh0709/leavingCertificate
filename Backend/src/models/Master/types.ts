@@ -1,6 +1,6 @@
 export type TMasterDBInput = TMasterDB & {
-    dateOfAdmission: Date;
-    birthDate: Date;
+    dateOfAdmission: string;
+    birthDate: string;
 };
 export type TMasterDBOutput = TMasterDB & {
     dateOfAdmission: Date;

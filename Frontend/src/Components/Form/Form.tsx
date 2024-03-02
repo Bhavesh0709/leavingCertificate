@@ -2,14 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { getBirthInfo, getCompliment, getDivisions } from '../../adapters';
 import { parseResponse } from '../../utils/common';
-import {
-    classTeacherOptions,
-    complimentOptions,
-    divisionOptions,
-    getCurrentDate,
-    options,
-    validators
-} from './constant';
+import { getCurrentDate, validators } from './constant';
 import { CommonInputs, Inputs, InputWithoutValidation } from './types';
 
 function Form() {

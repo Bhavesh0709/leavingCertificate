@@ -1,29 +1,22 @@
 import Master from '../../models/Master';
-import { TMasterDBInput, TMasterDBOutput } from '../../models/Master/types';
-import { BaseValidator } from './validator';
+import { TMasterDBInput } from '../../models/Master/types';
+import { ModifyObject } from './utils';
 
 class MasterDB {
-    private baseValidator: BaseValidator;
+    private modifyObject: ModifyObject;
     constructor() {
-        this.baseValidator = new BaseValidator();
+        this.modifyObject = new ModifyObject();
     }
-    async getUserDetails(aadharNo: number): Promise<Master | null> {
-        return await Master.findByPk(aadharNo);
+    async getUserDetails(aadharNo: string): Promise<Record<string, unknown>> {
+        const response = await Master.findByPk(aadharNo);
+        const dataValues = response?.dataValues;
+        const modifiedObj = await this.modifyObject.modifyGetUserObject(dataValues);
+        return modifiedObj;
     }
     async addUserDetails(data: TMasterDBInput) {
-        this.baseValidator.validateAddRecord(data);
-        const modifiedObj = this.modifyUserObject(data);
-        console.log('=== modified obj - ', modifiedObj);
+        const modifiedObj = this.modifyObject.modifyAddUserObject(data);
         return await Master.create(modifiedObj);
     }
-    modifyUserObject = (data: TMasterDBInput): TMasterDBOutput => {
-        const obj: any = { ...data };
-        obj.dateOfAdmission = new Date(obj.dateOfAdmission);
-        obj.birthDate = new Date(obj.birthDate);
-        const newData: TMasterDBOutput = obj;
-        console.log('== new Data - ', newData);
-        return newData;
-    };
 }
 
 export default MasterDB;

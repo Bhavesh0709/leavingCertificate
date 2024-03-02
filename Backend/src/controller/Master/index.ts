@@ -8,12 +8,10 @@ import { IRequest, IResponse } from '../../service/types';
 export class MasterDBController {
     async getUserDetails(req: IRequest, res: IResponse): Promise<IResponse> {
         try {
-            const { aadharNo } = req.body;
-            const formatResponse = new FormatResponse();
+            const { aadharNo } = req.params;
             const masterDB = new MasterDB();
             const response = await masterDB.getUserDetails(aadharNo);
-            const data = formatResponse.format(response);
-            return res.json(new SuccessResponse('Fetched successfully', data));
+            return res.json(new SuccessResponse('Fetched successfully', response));
         } catch (error: any) {
             logger.error('>>> getUserDetails error - ', error);
             const response = new FormatResponse();
