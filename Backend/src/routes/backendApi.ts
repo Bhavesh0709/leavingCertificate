@@ -36,4 +36,7 @@ routeRegistry.getDivisionRouteDefinitions().map((route) => {
 routeRegistry.getMasterRouteDefinitions().map((route) => {
     registerFullPathRoute(route);
 });
+routeRegistry.generatePDF().map((route) => {
+    registerFullPathRoute(route);
+});
 export default app;

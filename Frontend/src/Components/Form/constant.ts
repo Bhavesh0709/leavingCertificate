@@ -1,5 +1,4 @@
 export const validators = {
-    email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     aadharNo: /^[1-9]\d{11}$/,
     firstName: /^[a-zA-Z]+$/,
     middleName: /^[a-zA-Z]+$/,

@@ -14,9 +14,9 @@ export class MasterDBController {
             return res.json(new SuccessResponse('Fetched successfully', response));
         } catch (error: any) {
             logger.error('>>> getUserDetails error - ', error);
-            const response = new FormatResponse();
-            const errors = response.formatErrorResponse(error);
-            return res.status(errors.status).json(errors.data);
+            // const response = new FormatResponse();
+            // const errors = response.formatErrorResponse(error);
+            return res.status(error.status).json(error.data);
         }
     }
 

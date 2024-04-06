@@ -1,3 +1,4 @@
+import { CommonInputs } from '../Components/Form/types';
 import { get, post } from './providers';
 
 const ENDPOINTS = {
@@ -6,7 +7,10 @@ const ENDPOINTS = {
     addCompliment: '/addCompliment',
     getCompliment: '/getCompliment',
     getDivisions: '/getDivisions',
-    addDivision: '/addDivision'
+    addDivision: '/addDivision',
+    addUserDetails: '/addUserDetails',
+    getUserDetails: (aadharNo: string) => `/getUserDetails/${aadharNo}`,
+    generatePDF: '/generatePDF'
 };
 
 const getBirthInfo = async (): Promise<any> => {
@@ -52,4 +56,27 @@ const getDivisions = async () => {
     return result;
 };
 
-export { getBirthInfo, addBirthInfo, getCompliment, addCompliment, addDivision, getDivisions };
+const addUserDetails = async (data: CommonInputs): Promise<any> => {
+    const result = await post(ENDPOINTS.addUserDetails, { data });
+    return result;
+};
+
+const getUserDetails = async (aadharNo: string): Promise<any> => {
+    const result = await get(ENDPOINTS.getUserDetails(aadharNo));
+    return result;
+};
+const generatePDF = async (): Promise<any> => {
+    const result = await get(ENDPOINTS.generatePDF);
+    return result;
+};
+export {
+    getBirthInfo,
+    addBirthInfo,
+    getCompliment,
+    addCompliment,
+    addDivision,
+    getDivisions,
+    addUserDetails,
+    getUserDetails,
+    generatePDF
+};

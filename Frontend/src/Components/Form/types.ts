@@ -1,32 +1,30 @@
 export type Inputs = {
-  email: string;
-  aadharNo: string;
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  mothersName: string;
-  nationality: string;
-  motherTongue: string;
-  religion: string;
-  caste: string;
-  subCaste: string;
-  reasonOfLeaving: string;
-  shera: string;
+    aadharNo: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    mothersName: string;
+    motherTongue: string;
+    religion: string;
+    caste: string;
+    subCaste: string;
+    reasonOfLeaving: string;
+    shera: string;
 };
 
 export type InputWithoutValidation = {
-  birthPlace: string;
-  birthDate: Date;
-  dateOfAdmission: Date;
-  division: string;
-  progressInStudy: string;
-  behaviour: string;
-  dateOfLeaving: Date;
-  previousSchoolName: string;
-  currentDivision: string;
-  currentDivisionDate: Date;
-  classTeacher: string;
-}
+    studentId: string;
+    birthPlace: string;
+    birthDate: string;
+    dateOfAdmission: string;
+    division: string;
+    progressInStudy: string;
+    behaviour: string;
+    dateOfLeaving: string;
+    previousSchoolName: string;
+    currentDivision: string;
+    currentDivisionDate: string;
+    classTeacher: string;
+};
 
 export type CommonInputs = Inputs & InputWithoutValidation;
-

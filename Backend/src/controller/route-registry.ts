@@ -1,6 +1,7 @@
 import { BirthDetailsController } from './BirthDetails';
 import { ComplimentController } from './Compliment';
 import { DivisionController } from './Division';
+import { GeneratePDF } from './GeneratePDF';
 import { MasterDBController } from './Master';
 import { HTTPMethod, Route } from './routes';
 
@@ -62,6 +63,16 @@ export class RouteRegistry {
                 fullPath: '/getUserDetails/:aadharNo',
                 method: HTTPMethod.GET,
                 controllerFunction: masterDBController.getUserDetails.bind(masterDBController)
+            }
+        ];
+    }
+    generatePDF(): Route[] {
+        const generatePDF = new GeneratePDF();
+        return [
+            {
+                fullPath: '/generatePDF',
+                method: HTTPMethod.GET,
+                controllerFunction: generatePDF.generate.bind(generatePDF)
             }
         ];
     }

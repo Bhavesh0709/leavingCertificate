@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { getBirthInfo, getCompliment, getDivisions } from '../../adapters';
+import { addUserDetails, getBirthInfo, getCompliment, getDivisions } from '../../adapters';
 import { parseResponse } from '../../utils/common';
 import { getCurrentDate, validators } from './constant';
 import { CommonInputs, Inputs, InputWithoutValidation } from './types';
+import { useToast } from '../atoms/CustomToast';
 
 function Form() {
     const {
@@ -12,6 +13,7 @@ function Form() {
         formState: { errors },
         reset
     } = useForm<CommonInputs>();
+    const { displayToast } = useToast();
     const [options, setOptions] = useState({
         birthPlace: [],
         division: [],
@@ -58,7 +60,21 @@ function Form() {
         };
         fetchData();
     }, []);
-    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+    const onSubmit: SubmitHandler<CommonInputs> = (data) => {
+        addUserDetails(data)
+            .then((response) => {
+                const status = response.status;
+                const data = status == 200 ? response.message : response.data;
+                if (status == 200) {
+                    displayToast('success', 'Successfully added the user record', 'temp');
+                } else {
+                    displayToast('danger', 'Error adding the user record', data);
+                }
+            })
+            .catch((e) => {
+                displayToast('danger', 'Error while adding the user record', e);
+            });
+    };
     const handleReset = () => {
         reset();
     };
@@ -184,14 +200,13 @@ function Form() {
             </div>
         );
     };
-
     return (
         <div>
             <div className="container">
                 <div className="row">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="col-md-12 d-flex my-3">
-                            {renderInput('email', 6)}
+                            {renderInputWithoutValidation('studentId', 6)}
                             {renderInput('aadharNo', 6, 'number')}
                         </div>
 
@@ -203,7 +218,6 @@ function Form() {
 
                         <div className="col-md-12 d-flex ">
                             {renderInput('mothersName', 4)}
-                            {renderInput('nationality', 4, 'Indian')}
                             {renderInput('motherTongue', 4)}
                         </div>
 
