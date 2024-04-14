@@ -1,17 +1,13 @@
-import React from "react";
-import AddBirthPlace from "../AddExtra/AddBirthPlace";
-import AddCompliment from "../AddExtra/AddCompliment";
-import AddDivision from "../AddExtra/AddDivision";
-import Form from "../Form/Form";
+import React from 'react';
+import AddBirthPlace from '../AddExtra/AddBirthPlace';
+import AddCompliment from '../AddExtra/AddCompliment';
+import AddDivision from '../AddExtra/AddDivision';
+import Form from '../Form/Form';
+import Dashboard from '../Dashboard';
 
 export type CompanyName = 'MVM';
 
-export type IRouteName =
-    | 'Create'
-    | 'AddExtras'
-    | 'AddBirthPlace'
-    | 'AddDivision'
-    | 'AddCompliment'
+export type IRouteName = 'Create' | 'AddExtras' | 'AddBirthPlace' | 'AddDivision' | 'AddCompliment' | 'Dashboard';
 
 export const INTERNAL_ROUTES: Record<
     IRouteName,
@@ -44,14 +40,14 @@ export const INTERNAL_ROUTES: Record<
         name: 'Add BirthPlace',
         Component: AddBirthPlace,
         isVisible: false,
-        isDropDownContent: true 
+        isDropDownContent: true
     },
     AddDivision: {
         route: 'addDivison',
         name: 'Add Divison',
         Component: AddDivision,
         isVisible: false,
-        isDropDownContent: true 
+        isDropDownContent: true
     },
     AddCompliment: {
         route: 'addCompliment',
@@ -59,5 +55,12 @@ export const INTERNAL_ROUTES: Record<
         Component: AddCompliment,
         isVisible: false,
         isDropDownContent: true
+    },
+    Dashboard: {
+        route: 'Dashboard',
+        name: 'Dashboard',
+        Component: Dashboard,
+        isVisible: true,
+        isDropDownContent: false
     }
-}
+};

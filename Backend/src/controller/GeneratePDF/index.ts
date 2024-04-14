@@ -5,40 +5,19 @@ import puppeteer from 'puppeteer';
 import handlebars from 'handlebars';
 import fs from 'fs';
 import path from 'path';
+import MasterDB from '../../service/Master';
+import { BadRequestResponse } from '../../responseTypes/BadRequestResponse';
 
 export class GeneratePDF {
     async generate(req: IRequest, res: IResponse): Promise<IResponse> {
         try {
-            const data = {
-                aadharNo: '123432190121',
-                studentId: 123232,
-                firstName: 'Dummy',
-                middleName: 'abc',
-                lastName: 'User',
-                mothersName: 'temp',
-                motherTongue: 'Hindi',
-                birthDate: '2024-03-05',
-                birthPlace: 'इचलकरंजी',
-                religion: 'Marathi',
-                caste: 'Maratha',
-                subCaste: 'Maratha',
-                previousSchoolName: 'AntarBharti',
-                dateOfAdmission: '2024-03-04',
-                division: 'II B',
-                progressInStudy: 'Good Job',
-                behaviour: 'abc',
-                currentDivision: 2,
-                reasonOfLeaving: 'NA',
-                shera: 'NA',
-                classTeacher: 1,
-                createdAt: '2024-03-13T08:46:03.000Z',
-                updatedAt: '2024-03-13T08:46:03.000Z',
-                taluka: 'हातकणंगले',
-                district: 'कोल्हापूर',
-                state: 'महाराष्ट्र',
-                country: 'भारत'
-            };
-
+            const { aadharNo } = req.params;
+            const masterDB = new MasterDB();
+            const data = await masterDB.getModifiedUserDetails(aadharNo);
+            if (!data) {
+                throw new BadRequestResponse('Cannot generate PDF for empty data');
+            }
+            
             const pdfBuffer = await this.generatePDFFile(data);
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-Disposition', 'attachment; filename="generated_pdf.pdf"');

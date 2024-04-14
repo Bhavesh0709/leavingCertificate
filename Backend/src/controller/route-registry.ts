@@ -63,6 +63,11 @@ export class RouteRegistry {
                 fullPath: '/getUserDetails/:aadharNo',
                 method: HTTPMethod.GET,
                 controllerFunction: masterDBController.getUserDetails.bind(masterDBController)
+            },
+            {
+                fullPath: '/getAllUsers',
+                method: HTTPMethod.GET,
+                controllerFunction: masterDBController.getAllUsers.bind(masterDBController)
             }
         ];
     }
@@ -70,7 +75,7 @@ export class RouteRegistry {
         const generatePDF = new GeneratePDF();
         return [
             {
-                fullPath: '/generatePDF',
+                fullPath: '/generatePDF/:aadharNo',
                 method: HTTPMethod.GET,
                 controllerFunction: generatePDF.generate.bind(generatePDF)
             }

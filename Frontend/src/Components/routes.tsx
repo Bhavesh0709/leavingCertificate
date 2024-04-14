@@ -1,15 +1,16 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import Form from './Form/Form'
-import Navbar from './Navbar/Navbar'
-import { INTERNAL_ROUTES, IRouteName,CompanyName  } from './Navbar/types'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Form from './Form/Form';
+import Navbar from './Navbar/Navbar';
+import { INTERNAL_ROUTES, IRouteName, CompanyName } from './Navbar/types';
 const ExternalRouter = () => {
     const brandName: CompanyName = 'MVM';
     return (
         <>
-            <Navbar brandName={brandName}/>
+            <Navbar brandName={brandName} />
             <Routes>
-                <Route path='/' element={<Form />} />
+                <Route path="/" element={<Form />} />
+                <Route path="/edit/:id" element={<Form />} />
                 {Object.keys(INTERNAL_ROUTES).map((internalRoute, index) => {
                     const Page = INTERNAL_ROUTES[internalRoute as unknown as IRouteName].Component;
                     return (
@@ -20,11 +21,10 @@ const ExternalRouter = () => {
                         />
                     );
                 })}
-                <Route path='/*' element={<h1> Page Not found</h1>} />
+                <Route path="/*" element={<h1> Page Not found</h1>} />
             </Routes>
         </>
-    )
-}
+    );
+};
 
-
-export default ExternalRouter
+export default ExternalRouter;

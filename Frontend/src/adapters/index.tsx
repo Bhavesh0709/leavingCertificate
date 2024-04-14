@@ -10,7 +10,8 @@ const ENDPOINTS = {
     addDivision: '/addDivision',
     addUserDetails: '/addUserDetails',
     getUserDetails: (aadharNo: string) => `/getUserDetails/${aadharNo}`,
-    generatePDF: '/generatePDF'
+    generatePDF: (aadharNo: string) => `/generatePDF/${aadharNo}`,
+    getAllUsers: '/getAllUsers'
 };
 
 const getBirthInfo = async (): Promise<any> => {
@@ -65,8 +66,13 @@ const getUserDetails = async (aadharNo: string): Promise<any> => {
     const result = await get(ENDPOINTS.getUserDetails(aadharNo));
     return result;
 };
-const generatePDF = async (): Promise<any> => {
-    const result = await get(ENDPOINTS.generatePDF);
+const generatePDF = async (aadharNo: string): Promise<any> => {
+    const result = await get(ENDPOINTS.generatePDF(aadharNo));
+    return result;
+};
+
+const fetchAllUsers = async (): Promise<any> => {
+    const result = await get(ENDPOINTS.getAllUsers);
     return result;
 };
 export {
@@ -78,5 +84,6 @@ export {
     getDivisions,
     addUserDetails,
     getUserDetails,
-    generatePDF
+    generatePDF,
+    fetchAllUsers
 };

@@ -1,24 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { addUserDetails, getBirthInfo, getCompliment, getDivisions } from '../../adapters';
+import { addUserDetails, getBirthInfo, getCompliment, getDivisions, getUserDetails } from '../../adapters';
 import { parseResponse } from '../../utils/common';
 import { getCurrentDate, validators } from './constant';
 import { CommonInputs, Inputs, InputWithoutValidation } from './types';
 import { useToast } from '../atoms/CustomToast';
+import { useParams } from 'react-router-dom';
 
 function Form() {
+    const id = useParams();
+
+    const { displayToast } = useToast();
     const {
         register,
         handleSubmit,
         formState: { errors },
-        reset
+        reset,
+        setValue
     } = useForm<CommonInputs>();
-    const { displayToast } = useToast();
+    let mode = 'ADD';
+    if (Object.keys(id).length > 0) {
+        mode = 'EDIT';
+    }
+    if (mode === 'EDIT') {
+        useEffect(() => {
+            if (mode === 'EDIT') {
+                const fetchStudentData = async () => {
+                    const aadharNo = id.id as string;
+                    const [studentDataError, studentDataResult] = await parseResponse(getUserDetails(aadharNo));
+                    if (studentDataError || studentDataResult.status !== 200) {
+                        console.error('Error while fetching student data', studentDataError);
+                    } else {
+                        const data = studentDataResult.data;
+                        setStudentData(data);
+                        // Set form values using setValue
+                        Object.keys(data).forEach((key) => {
+                            setValue(key as keyof CommonInputs, data[key]);
+                        });
+                    }
+                };
+                fetchStudentData();
+            }
+        }, [id, mode, setValue]);
+    }
+
+    const [studentData, setStudentData] = useState<CommonInputs | null>(null);
     const [options, setOptions] = useState({
         birthPlace: [],
         division: [],
         compliments: []
     });
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -127,7 +159,6 @@ function Form() {
             </div>
         );
     };
-
     const renderInputWithoutValidation = (
         fieldName: keyof InputWithoutValidation,
         colW: number,

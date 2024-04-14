@@ -20,6 +20,17 @@ export class MasterDBController {
         }
     }
 
+    async getAllUsers(req: IRequest, res: IResponse): Promise<IResponse> {
+        try {
+            const masterDB = new MasterDB();
+            const response = await masterDB.getAllUsers();
+            return res.json(new SuccessResponse('Fetched successfully', response));
+        } catch (error: any) {
+            logger.error('>>> getUserDetails error - ', error);
+            return res.status(error.status).json(error.data);
+        }
+    }
+
     async addUserDetails(req: IRequest, res: IResponse): Promise<IResponse> {
         try {
             const { data } = req.body;

@@ -28,3 +28,4 @@ export type InputWithoutValidation = {
 };
 
 export type CommonInputs = Inputs & InputWithoutValidation;
+

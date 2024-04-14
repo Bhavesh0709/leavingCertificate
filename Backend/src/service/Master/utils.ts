@@ -23,16 +23,18 @@ export class ModifyObject {
         return newData;
     };
 
-    modifyGetUserObject = async (data: TMasterDBOutput) => {
-        console.log('== data - ', data);
-        const result = await this.getCustomizedInfo(
-            data.progressInStudy,
-            data.behaviour,
-            data.division,
-            data.birthPlace
-        );
-        const finalObj = { ...data, ...result };
-        return finalObj;
+    modifyGetUserObject = async (data: TMasterDBOutput | null) => {
+        if (data) {
+            const result = await this.getCustomizedInfo(
+                data.progressInStudy,
+                data.behaviour,
+                data.division,
+                data.birthPlace
+            );
+            const finalObj = { ...data, ...result };
+            return finalObj;
+        }
+        return null;
     };
     getCustomizedInfo = async (progressInStudy: number, behaviour: number, division: number, birthPlaceId: number) => {
         const _progressInStudy = await this.complimentService.getComplimentById(progressInStudy);
