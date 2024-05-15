@@ -8,7 +8,7 @@ export type TMasterDBOutput = TMasterDB & {
 };
 export type TMasterDB = {
     aadharNo: number;
-    studentId?: number;
+    studentId?: string;
     firstName: string;
     middleName: string;
     lastName: string;

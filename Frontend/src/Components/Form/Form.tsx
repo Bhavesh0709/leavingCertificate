@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { addUserDetails, getBirthInfo, getCompliment, getDivisions, getUserDetails } from '../../adapters';
 import { parseResponse } from '../../utils/common';
 import { getCurrentDate, validators } from './constant';
-import { CommonInputs, Inputs, InputWithoutValidation } from './types';
+import { CommonInputs, FieldHeaders, Inputs, InputWithoutValidation } from './types';
 import { useToast } from '../atoms/CustomToast';
 import { useParams } from 'react-router-dom';
 
@@ -138,15 +138,13 @@ function Form() {
         defaultValue?: string,
         allowValidation?: boolean
     ) => {
-        const labelText = fieldName
-            .replace(/([A-Z])/g, ' $1') // Insert a space before each capital letter
-            .replace(/^./, (str) => str.toUpperCase());
+        const label = FieldHeaders[fieldName] || '';
         const colStyling = `col-md-${colW} p-2`;
         const allowValidate = allowValidation !== false;
         return (
             <div className={colStyling}>
                 <label htmlFor={fieldName} className="form-label">
-                    {labelText}
+                    {label}
                     {allowValidate ? <span className="text-danger">*</span> : ''}
                 </label>
                 <input
@@ -165,14 +163,12 @@ function Form() {
         inputType?: string,
         defaultValue?: string
     ) => {
-        const labelText = fieldName
-            .replace(/([A-Z])/g, ' $1') // Insert a space before each capital letter
-            .replace(/^./, (str) => str.toUpperCase());
+        const label = FieldHeaders[fieldName] || '';
         const colStyling = `col-md-${colW} p-2`;
         return (
             <div className={colStyling}>
                 <label htmlFor={fieldName} className="form-label">
-                    {labelText}
+                    {label}
                 </label>
                 <input
                     {...register(fieldName)}
@@ -185,9 +181,7 @@ function Form() {
     };
 
     const renderDatePicker = (fieldName: keyof InputWithoutValidation, colW: number) => {
-        const labelText = fieldName
-            .replace(/([A-Z])/g, ' $1') // Insert a space before each capital letter
-            .replace(/^./, (str) => str.toUpperCase());
+        const labelText = FieldHeaders[fieldName];
         const colStyling = `col-md-${colW} p-2`;
         return (
             <div className={colStyling}>
@@ -212,7 +206,7 @@ function Form() {
         labelDisplayValue: string,
         labelSelectedValue: string
     ) => {
-        const labelText = fieldName.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
+        const labelText = FieldHeaders[fieldName];
         const colStyling = `col-md-${colW} p-2`;
         return (
             <div className={colStyling}>

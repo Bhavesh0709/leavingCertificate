@@ -11,7 +11,7 @@ Master.init(
             allowNull: false
         },
         studentId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             unique: true,
             allowNull: true
         },

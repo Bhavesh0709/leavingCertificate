@@ -1,16 +1,16 @@
 export const validators = {
-    aadharNo: /^[1-9]\d{11}$/,
-    firstName: /^[a-zA-Z]+$/,
-    middleName: /^[a-zA-Z]+$/,
-    lastName: /^[a-zA-Z]+$/,
-    mothersName: /^[a-zA-Z]+$/,
-    nationality: /^[a-zA-Z]+$/,
-    motherTongue: /^[a-zA-Z]+$/,
-    religion: /^[a-zA-Z]+$/,
-    caste: /^[a-zA-Z]+$/,
-    subCaste: /^[a-zA-Z]+$/,
-    reasonOfLeaving: /^[a-zA-Z]+$/,
-    shera: /^[a-zA-Z]+$/
+    aadharNo: /^([0-9]{12}|[\u0966-\u096F]{12})$/,
+    firstName: /^[a-zA-Z]|[\u0900-\u097F]+$/,
+    middleName: /^[a-zA-Z]|[\u0900-\u097F]+$/,
+    lastName: /^[a-zA-Z]|[\u0900-\u097F]+$/,
+    mothersName: /^[a-zA-Z]|[\u0900-\u097F]+$/,
+    nationality: /^[a-zA-Z]|[\u0900-\u097F]+$/,
+    motherTongue: /^[a-zA-Z]|[\u0900-\u097F]+$/,
+    religion: /^[a-zA-Z]|[\u0900-\u097F]+$/,
+    caste: /^[a-zA-Z]|[\u0900-\u097F]+$/,
+    subCaste: /^[a-zA-Z]|[\u0900-\u097F]+$/,
+    reasonOfLeaving: /^[a-zA-Z]|[\u0900-\u097F]+$/,
+    shera: /^[a-zA-Z]|[\u0900-\u097F]+$/
 };
 
 export const getCurrentDate = () => {
