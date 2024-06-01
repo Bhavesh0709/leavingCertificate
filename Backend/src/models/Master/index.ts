@@ -44,15 +44,15 @@ Master.init(
             allowNull: false
         },
         religion: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         caste: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         subCaste: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         previousSchoolName: {
@@ -84,8 +84,12 @@ Master.init(
             allowNull: true
         },
         shera: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: true
+        },
+        schoolLeavingDate: {
+            type: DataTypes.DATEONLY,
+            allowNull: false
         }
     },
     {
