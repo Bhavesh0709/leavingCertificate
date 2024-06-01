@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { addUserDetails, getBirthInfo, getCompliment, getDivisions, getUserDetails } from '../../adapters';
+import {
+    addUserDetails,
+    getAllReligionAndCastes,
+    getBirthInfo,
+    getCompliment,
+    getDivisions,
+    getSheras,
+    getUserDetails
+} from '../../adapters';
 import { parseResponse } from '../../utils/common';
 import { getCurrentDate, validators } from './constant';
 import { CommonInputs, FieldHeaders, Inputs, InputWithoutValidation } from './types';
@@ -9,7 +17,15 @@ import { useParams } from 'react-router-dom';
 
 function Form() {
     const id = useParams();
-
+    const [options, setOptions] = useState({
+        birthPlace: [''],
+        division: [],
+        compliments: [],
+        religion: [],
+        caste: [],
+        subCaste: [],
+        shera: []
+    });
     const { displayToast } = useToast();
     const {
         register,
@@ -23,34 +39,23 @@ function Form() {
         mode = 'EDIT';
     }
     if (mode === 'EDIT') {
-        useEffect(() => {
-            if (mode === 'EDIT') {
-                const fetchStudentData = async () => {
-                    const aadharNo = id.id as string;
-                    const [studentDataError, studentDataResult] = await parseResponse(getUserDetails(aadharNo));
-                    if (studentDataError || studentDataResult.status !== 200) {
-                        console.error('Error while fetching student data', studentDataError);
-                    } else {
-                        const data = studentDataResult.data;
-                        setStudentData(data);
-                        // Set form values using setValue
-                        Object.keys(data).forEach((key) => {
-                            setValue(key as keyof CommonInputs, data[key]);
-                        });
-                    }
-                };
-                fetchStudentData();
-            }
-        }, [id, mode, setValue]);
+        if (mode === 'EDIT') {
+            const fetchStudentData = async () => {
+                const aadharNo = id.id as string;
+                const [studentDataError, studentDataResult] = await parseResponse(getUserDetails(aadharNo));
+                if (studentDataError || studentDataResult.status !== 200) {
+                    console.error('Error while fetching student data', studentDataError);
+                } else {
+                    const data = studentDataResult.data;
+                    // Set form values using setValue
+                    Object.keys(data).forEach((key) => {
+                        setValue(key as keyof CommonInputs, data[key]);
+                    });
+                }
+            };
+            fetchStudentData();
+        }
     }
-
-    const [studentData, setStudentData] = useState<CommonInputs | null>(null);
-    const [options, setOptions] = useState({
-        birthPlace: [],
-        division: [],
-        compliments: []
-    });
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -84,6 +89,28 @@ function Form() {
                     setOptions((prevOptions) => ({
                         ...prevOptions,
                         compliments: complimentsResult.data
+                    }));
+                }
+
+                const [religionAndCasteError, religionAndCasteResult] = await parseResponse(getAllReligionAndCastes());
+                if (religionAndCasteError || religionAndCasteResult.status !== 200) {
+                    console.error('Error while fetching divisionInfo', religionAndCasteError);
+                } else {
+                    setOptions((prevOptions) => ({
+                        ...prevOptions,
+                        religion: religionAndCasteResult.data.religions || [],
+                        caste: religionAndCasteResult.data.caste || [],
+                        subCaste: religionAndCasteResult.data.subCaste || []
+                    }));
+                }
+
+                const [sheraError, sheraResult] = await parseResponse(getSheras());
+                if (sheraError || sheraResult.status !== 200) {
+                    console.error('Error while fetching divisionInfo', sheraError);
+                } else {
+                    setOptions((prevOptions) => ({
+                        ...prevOptions,
+                        shera: sheraResult.data || []
                     }));
                 }
             } catch (error) {
@@ -152,6 +179,7 @@ function Form() {
                     className="form-control"
                     type={inputType || 'text'}
                     defaultValue={defaultValue || ''}
+                    disabled={mode === 'EDIT' && label == FieldHeaders.aadharNo ? true : false}
                 />
                 {handleErrorMessage(fieldName)}
             </div>
@@ -247,9 +275,9 @@ function Form() {
                         </div>
 
                         <div className="col-md-12 d-flex ">
-                            {renderInput('religion', 4)}
-                            {renderInput('caste', 4)}
-                            {renderInput('subCaste', 4)}
+                            {renderDropdown('religion', 4, options.religion, 'religion', 'id')}
+                            {renderDropdown('caste', 4, options.caste, 'caste', 'id')}
+                            {renderDropdown('subCaste', 4, options.subCaste, 'subCaste', 'id')}
                         </div>
 
                         <div className="col-md-12 d-flex ">
@@ -278,18 +306,20 @@ function Form() {
 
                         <div className="col-md-12 d-flex ">
                             {renderInput('reasonOfLeaving', 4)}
-                            {renderInput('shera', 4)}
-                            {renderDropdown('classTeacher', 4, options.compliments, 'statement', 'id')}
+                            {renderDropdown('shera', 4, options.shera, 'shera', 'id')}
+                            {renderDatePicker('schoolLeavingDate', 6)}
                         </div>
 
                         <div className="d-flex justify-content-end">
-                            <button
-                                type="button"
-                                onClick={handleReset}
-                                className="btn btn-danger btn-md px-5 my-4 mx-2"
-                            >
-                                Reset
-                            </button>
+                            {mode !== 'EDIT' && (
+                                <button
+                                    type="button"
+                                    onClick={handleReset}
+                                    className="btn btn-danger btn-md px-5 my-4 mx-2"
+                                >
+                                    Reset
+                                </button>
+                            )}
                             <button type="submit" className="btn btn-success btn-md px-5 my-4 mx-2">
                                 Submit
                             </button>

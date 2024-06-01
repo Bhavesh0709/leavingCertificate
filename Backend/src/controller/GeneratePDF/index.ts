@@ -14,10 +14,11 @@ export class GeneratePDF {
             const { aadharNo } = req.params;
             const masterDB = new MasterDB();
             const data = await masterDB.getModifiedUserDetails(aadharNo);
+            console.log('=== data = ', data);
             if (!data) {
                 throw new BadRequestResponse('Cannot generate PDF for empty data');
             }
-            
+
             const pdfBuffer = await this.generatePDFFile(data);
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-Disposition', 'attachment; filename="generated_pdf.pdf"');

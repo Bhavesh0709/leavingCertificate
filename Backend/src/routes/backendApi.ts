@@ -39,4 +39,10 @@ routeRegistry.getMasterRouteDefinitions().map((route) => {
 routeRegistry.generatePDF().map((route) => {
     registerFullPathRoute(route);
 });
+routeRegistry.getSheraRouteDefinitions().map((route) => {
+    registerFullPathRoute(route);
+});
+routeRegistry.getReligionAndCasteControllerRouteDefinitions().map((route) => {
+    registerFullPathRoute(route);
+});
 export default app;

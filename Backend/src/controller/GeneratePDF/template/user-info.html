@@ -7,95 +7,124 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <style>
-    
+    body{
+      margin-top: 200px;
+    }
   </style>
 </head>
 <body>
   <div class="container mt-5 temp">
-    <h1>Leaving Certificate</h1>
+    <h1 class="text-center">शाळा सोडल्याचा प्रमाणपत्र </h1>
     <div class="row mt-3">
       <div class="col-sm-12">
-        <h4><strong>Student ID </strong> - {{studentId}}</h4>
+        <h6><strong>स्टुडन्ट आय.डी.:</strong>&nbsp;{{studentId}}</h6>
       </div>
     </div>
     <div class="row my-2">
       <div class="col-sm-12">
-        <h4><strong>Aadhar No </strong> - {{aadharNo}} </h4>
+        <h6><strong>यु.आय.डी.नं. (आधार कार्ड क्रमांक):</strong>&nbsp;{{aadharNo}}</h6>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-4">
-        <h4><strong>First Name</strong>  {{firstName}}</h4>
+      <div class="col-sm-6">
+        <h6><strong>विद्याथ्यारचे पूर्ण नांव:</strong>&nbsp;{{firstName}}</h6>
       </div>
-      <div class="col-sm-4">
-        <h4><strong>Middle Name</strong>  {{middleName}}</h4>
+      <div class="col-sm-6">
+        <h6><strong>वडिलांचे नांव:</strong>&nbsp;{{middleName}}</h6>
       </div>
+    </div>
+    <div class="row my-2">
       <div class="col-sm-4">
-        <h4><strong>Last Name</strong>  {{lastName}}</h4>
+        <h6><strong>आडनांव:</strong>&nbsp;{{lastName}}</h6>
       </div>
     </div>
     <div class="row my-2">
       <div class="col-sm-12">
-        <h4><strong>Mothers Name </strong> - {{mothersName}} </h4>
+        <h6><strong>आईचे नांव:</strong>&nbsp;{{mothersName}}</h6>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <h4><strong>Nationality </strong> - {{country}} </h4>
+        <h6><strong>राष्ट्रीयत्व:</strong>&nbsp;{{country}}</h6>
       </div>
       <div class="col-sm-6">
-        <h4><strong>Mothers Tongue </strong> - {{motherTongue}} </h4>
+        <h6><strong>मातृभाषा:</strong>&nbsp;{{motherTongue}}</h6>
       </div>
     </div>
     <div class="row my-2">
       <div class="col-sm-4">
-        <h4><strong>Religion </strong> {{religion}} </h4>
+        <h6><strong>धर्म: </strong>&nbsp;{{religion}}</h6>
       </div>
       <div class="col-sm-4">
-        <h4><strong>Caste </strong>&nbsp; {{caste}} </h4>
+        <h6><strong>जात: </strong>&nbsp;{{caste}}</h6>
       </div>
       <div class="col-sm-4">
-        <h4><strong>Sub Caste </strong> {{subCaste}} </h4>
+        <h6><strong>पोटजात: </strong>&nbsp;{{subCaste}}</h6>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-4">
-        <h4><strong>Birth Place </strong> {{birthPlace}} </h4>
+        <h6><strong>जन्म स्थळ (गाव /शहर):</strong>&nbsp;{{birthPlace}}</h6>
       </div>
       <div class="col-sm-4">
-        <h4><strong>Taluka </strong> {{taluka}} </h4>
+        <h6><strong>तालुका:</strong>&nbsp;{{taluka}}</h6>
       </div>
       <div class="col-sm-4">
-        <h4><strong>District</strong> {{district}} </h4>
+        <h6><strong>जिल्हा:</strong>&nbsp;{{district}}</h6>
       </div>
     </div>
     <div class="row my-2">
       <div class="col-sm-6">
-        <h4><strong>State </strong> {{state}} </h4>
+        <h6><strong>राज्य: </strong>&nbsp;{{state}}</h6>
       </div>
       <div class="col-sm-6">
-        <h4><strong>Country </strong> {{country}} </h4>
+        <h6><strong>देश: </strong>&nbsp;{{country}}</h6>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <h4><strong>Birth Date </strong> {{birthDate}} </h4>
+        <h6><strong>इसवी सनाप्रमाणे जन्म दिनांक: </strong>{{birthDate}}</h6>
       </div>
     </div>
     <div class="row my-2">
       <div class="col-sm-12">
-        <h4><strong>Previous School Name & division </strong> {{previousSchoolName}} {{division}} </h4>
+        <h6><strong>या पूर्वीची शाळा व इयत्ता: </strong>{{previousSchoolName}}&nbsp;{{division}} </h6>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-8">
-        <h4><strong>Admission Date </strong> {{dateOfAdmission}}  </h4>
+        <h6><strong>या शाळेत प्रवेश घेतल्याचा दिनांक:</strong>&nbsp;{{dateOfAdmission}}</h6>
       </div>
       <div class="col-sm-4">
-        <h4><strong>Division </strong> {{currentDivision}}  </h4>
+        <h6><strong>इयत्ता </strong>&nbsp;{{currentDivision}}  </h6>
       </div>
     </div>
-  </div>
+    <div class="row my-2">
+      <div class="col-sm-4">
+        <h6><strong>अभ्यासातली प्रगती:</strong>&nbsp;{{progressInStudy}}</h6>
+      </div>
+      <div class="col-sm-4">
+        <h6><strong>वर्तणूक:</strong>&nbsp;{{behaviour}}  </h6>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h6><strong>शाळा सोडल्याचा दिनांक: </strong>&nbsp;{{birthDate}}  </h6>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h6><strong>कोणता इयतेत शिकत होता व केव्हा पासून (अक्षरी व अंकी):</strong>&nbsp;{{progressInStudy}}</h6>
+    </div>
+    <div class="row my-2">
+      <div class="col-sm-6">
+        <h6><strong>शाळा सोडल्याचा कारण:</strong>&nbsp;{{reasonOfLeaving}}</h6>
+      </div>
+      <div class="col-sm-6">
+        <h6><strong>शेरा:</strong>&nbsp;{{shera}}</h6>
+      </div>
+    </div>
+    <h6>दाखला देण्यात येते की, वरील माहिती शाळेतील जनरल रेजिस्टर नं १. प्रमाणे आहे. </h6>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

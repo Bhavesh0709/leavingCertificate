@@ -1,20 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ActionItems, IStudentDirectoryRow } from './types';
 import { Link } from 'react-router-dom';
 import { generatePDF } from '../../adapters';
 
 const StudentDirectoryRow: React.FunctionComponent<IStudentDirectoryRow> = ({ studentData }) => {
+    const [loading, setLoading] = useState(false);
+
     const handlePrintClick = async () => {
-        const response = await generatePDF(studentData.aadharNo);
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
+        setLoading(true);
 
-        // Open PDF in new tab
-        window.open(url, '_blank');
+        try {
+            const response = await generatePDF(studentData.aadharNo);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
 
-        // Clean up by revoking the URL
-        window.URL.revokeObjectURL(url);
+            // Open PDF in new tab
+            window.open(url, '_blank')?.print();
+
+            // Clean up by revoking the URL
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+        } finally {
+            setLoading(false);
+        }
     };
+
     return (
         <tr>
             <td>{studentData.studentId}</td>
@@ -29,8 +40,19 @@ const StudentDirectoryRow: React.FunctionComponent<IStudentDirectoryRow> = ({ st
                 </Link>
             </td>
             <td>
-                <button className="btn btn-warning" onClick={handlePrintClick}>
-                    {ActionItems.PRINT}
+                <button className="btn btn-warning" onClick={handlePrintClick} disabled={loading}>
+                    {loading ? (
+                        <>
+                            <span
+                                className="spinner-border spinner-border-sm me-2"
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
+                            Loading...
+                        </>
+                    ) : (
+                        ActionItems.PRINT
+                    )}
                 </button>
             </td>
         </tr>

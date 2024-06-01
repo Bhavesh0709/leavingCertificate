@@ -86,10 +86,6 @@ Master.init(
         shera: {
             type: DataTypes.STRING,
             allowNull: true
-        },
-        classTeacher: {
-            type: DataTypes.INTEGER,
-            allowNull: true
         }
     },
     {

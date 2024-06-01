@@ -5,26 +5,26 @@ export type Inputs = {
     lastName: string;
     mothersName: string;
     motherTongue: string;
-    religion: string;
-    caste: string;
-    subCaste: string;
     reasonOfLeaving: string;
-    shera: string;
 };
 
 export type InputWithoutValidation = {
     studentId: string;
     birthPlace: string;
     birthDate: string;
+    religion: string;
+    caste: string;
+    subCaste: string;
     dateOfAdmission: string;
     division: string;
+    shera: string;
     progressInStudy: string;
     behaviour: string;
     dateOfLeaving: string;
     previousSchoolName: string;
     currentDivision: string;
     currentDivisionDate: string;
-    classTeacher: string;
+    schoolLeavingDate: string;
 };
 
 export type CommonInputs = Inputs & InputWithoutValidation;
@@ -45,12 +45,12 @@ export enum FieldHeaders {
     birthPlace = 'Birth Place / (जन्म ठिकाण)',
     birthDate = 'Birth Date / (जन्म तारीख)',
     dateOfAdmission = 'Date of Admission / (प्रवेशची तारीख)',
-    division = 'Division / (विभाग)',
+    division = 'Standard / (इयत्ता)',
     progressInStudy = 'Progress in Study / (अभ्यासातील प्रगती)',
     behaviour = 'Behaviour / (वर्तन)',
     dateOfLeaving = 'Date of Leaving / (बाहेर पडण्याची तारीख)',
-    previousSchoolName = 'Previous School Name / (मागील शाळेचे नाव)',
-    currentDivision = 'Current Division / (सध्याचे विभाग)',
-    currentDivisionDate = 'Current Division Date / (सध्याच्या विभागाची तारीख)',
-    classTeacher = 'Class Teacher / (वर्ग शिक्षक)'
+    previousSchoolName = 'Previous School Name and Standard / (या पूर्वीची शाळा व इयत्ता)',
+    currentDivision = 'Current Standard / (इयत्ता)',
+    currentDivisionDate = 'Current Standard Date / (सध्याच्या इयत्ता तारीख)',
+    schoolLeavingDate = 'School Leaving Date / (शाळा सोडल्याचा दिनांक)'
 }

@@ -11,7 +11,11 @@ const ENDPOINTS = {
     addUserDetails: '/addUserDetails',
     getUserDetails: (aadharNo: string) => `/getUserDetails/${aadharNo}`,
     generatePDF: (aadharNo: string) => `/generatePDF/${aadharNo}`,
-    getAllUsers: '/getAllUsers'
+    getAllUsers: '/getAllUsers',
+    getAllReligionAndCastes: '/getAllReligionAndCastes',
+    addReligionAndCastes: '/addReligionAndCastes',
+    addShera: '/addShera',
+    getSheras: '/getSheras'
 };
 
 const getBirthInfo = async (): Promise<any> => {
@@ -75,6 +79,30 @@ const fetchAllUsers = async (): Promise<any> => {
     const result = await get(ENDPOINTS.getAllUsers);
     return result;
 };
+
+const getAllReligionAndCastes = async (): Promise<any> => {
+    const result = await get(ENDPOINTS.getAllReligionAndCastes);
+    return result;
+};
+const addReligionAndCastes = async (religion: string, caste: string, subCaste: string): Promise<any> => {
+    const result = await post(ENDPOINTS.addReligionAndCastes, {
+        religion,
+        caste,
+        subCaste
+    });
+    return result;
+};
+
+const addShera = async (shera: string): Promise<any> => {
+    const result = await post(ENDPOINTS.addShera, {
+        shera
+    });
+    return result;
+};
+
+const getSheras = async (): Promise<any> => {
+    return await get(ENDPOINTS.getSheras);
+};
 export {
     getBirthInfo,
     addBirthInfo,
@@ -85,5 +113,9 @@ export {
     addUserDetails,
     getUserDetails,
     generatePDF,
-    fetchAllUsers
+    fetchAllUsers,
+    getAllReligionAndCastes,
+    addReligionAndCastes,
+    addShera,
+    getSheras
 };

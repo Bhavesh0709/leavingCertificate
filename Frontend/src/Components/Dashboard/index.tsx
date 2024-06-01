@@ -22,22 +22,28 @@ function Dashboard() {
 
     return (
         <div className="container mt-5">
-            <table className="table">
-                <thead className="table-dark">
-                    <tr>
-                        <th>{TableHeaders.STUDENT_ID}</th>
-                        <th>{TableHeaders.NAME}</th>
-                        <th>{TableHeaders.AADHAR_NO}</th>
-                        <th colSpan={Object.keys(ActionItems).length}>{TableHeaders.ACTIONS}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {studentData.count > 0 &&
-                        studentData.rows.map((student: IStudentData) => (
-                            <StudentDirectoryRow key={student.studentId} studentData={student} />
-                        ))}
-                </tbody>
-            </table>
+            {studentData.count > 0 ? (
+                <table className="table">
+                    <thead className="table-dark">
+                        <tr>
+                            <th>{TableHeaders.STUDENT_ID}</th>
+                            <th>{TableHeaders.NAME}</th>
+                            <th>{TableHeaders.AADHAR_NO}</th>
+                            <th colSpan={Object.keys(ActionItems).length}>{TableHeaders.ACTIONS}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {studentData.count > 0 &&
+                            studentData.rows.map((student: IStudentData) => (
+                                <StudentDirectoryRow key={student.studentId} studentData={student} />
+                            ))}
+                    </tbody>
+                </table>
+            ) : (
+                <div className="alert alert-primary" role="alert">
+                    No records to show yet
+                </div>
+            )}
         </div>
     );
 }

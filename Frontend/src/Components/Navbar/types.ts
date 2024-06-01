@@ -4,10 +4,20 @@ import AddCompliment from '../AddExtra/AddCompliment';
 import AddDivision from '../AddExtra/AddDivision';
 import Form from '../Form/Form';
 import Dashboard from '../Dashboard';
+import AddReligionAndCastes from '../AddExtra/AddReligionAndCastes';
+import AddShera from '../AddExtra/AddShera';
 
 export type CompanyName = 'MVM';
 
-export type IRouteName = 'Create' | 'AddExtras' | 'AddBirthPlace' | 'AddDivision' | 'AddCompliment' | 'Dashboard';
+export type IRouteName =
+    | 'Create'
+    | 'AddExtras'
+    | 'AddBirthPlace'
+    | 'AddDivision'
+    | 'AddCompliment'
+    | 'Dashboard'
+    | 'AddReligionAndCastes'
+    | 'AddShera';
 
 export const INTERNAL_ROUTES: Record<
     IRouteName,
@@ -33,7 +43,7 @@ export const INTERNAL_ROUTES: Record<
         Component: AddBirthPlace,
         isVisible: true,
         isDropDownContent: false,
-        dropdownComponents: ['AddBirthPlace', 'AddDivision', 'AddCompliment']
+        dropdownComponents: ['AddBirthPlace', 'AddDivision', 'AddCompliment', 'AddReligionAndCastes', 'AddShera']
     },
     AddBirthPlace: {
         route: 'addBirthPlace',
@@ -62,5 +72,19 @@ export const INTERNAL_ROUTES: Record<
         Component: Dashboard,
         isVisible: true,
         isDropDownContent: false
+    },
+    AddReligionAndCastes: {
+        route: 'addReligionAndCastes',
+        name: 'Add Religion and Castes',
+        Component: AddReligionAndCastes,
+        isVisible: false,
+        isDropDownContent: true
+    },
+    AddShera: {
+        route: 'addShera',
+        name: 'Add Shera',
+        Component: AddShera,
+        isVisible: false,
+        isDropDownContent: true
     }
 };

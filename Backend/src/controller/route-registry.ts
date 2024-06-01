@@ -3,6 +3,8 @@ import { ComplimentController } from './Compliment';
 import { DivisionController } from './Division';
 import { GeneratePDF } from './GeneratePDF';
 import { MasterDBController } from './Master';
+import { ReligionAndCasteController } from './ReligionAndCaste';
+import { SheraController } from './Shera';
 import { HTTPMethod, Route } from './routes';
 
 export class RouteRegistry {
@@ -48,6 +50,36 @@ export class RouteRegistry {
                 fullPath: '/getDivisions',
                 method: HTTPMethod.GET,
                 controllerFunction: divisionController.getDivisions.bind(divisionController)
+            }
+        ];
+    }
+    getSheraRouteDefinitions(): Route[] {
+        const sheraController = new SheraController();
+        return [
+            {
+                fullPath: '/addShera',
+                method: HTTPMethod.POST,
+                controllerFunction: sheraController.addShera.bind(sheraController)
+            },
+            {
+                fullPath: '/getSheras',
+                method: HTTPMethod.GET,
+                controllerFunction: sheraController.getSheras.bind(sheraController)
+            }
+        ];
+    }
+    getReligionAndCasteControllerRouteDefinitions(): Route[] {
+        const religionAndCasteController = new ReligionAndCasteController();
+        return [
+            {
+                fullPath: '/addReligionAndCastes',
+                method: HTTPMethod.POST,
+                controllerFunction: religionAndCasteController.addReligionAndCastes.bind(religionAndCasteController)
+            },
+            {
+                fullPath: '/getAllReligionAndCastes',
+                method: HTTPMethod.GET,
+                controllerFunction: religionAndCasteController.getAllReligionAndCastes.bind(religionAndCasteController)
             }
         ];
     }

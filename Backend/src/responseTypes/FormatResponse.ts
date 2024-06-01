@@ -2,16 +2,27 @@ import { TSequelizeError } from './types';
 
 export class FormatResponse {
     format(response) {
-        const data: any[] = [];
-        if (response.length > 0) {
-            response.map((obj) => {
-                const dataVal = obj.dataValues;
-                data.push(dataVal);
-            });
+        return this.extractDataValues(response);
+    }
+
+    extractDataValues(obj) {
+        if (Array.isArray(obj)) {
+            return obj.map((item) => this.extractDataValues(item));
+        } else if (obj && typeof obj === 'object') {
+            if (obj.dataValues) {
+                return obj.dataValues;
+            } else {
+                const result = {};
+                for (const key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        result[key] = this.extractDataValues(obj[key]);
+                    }
+                }
+                return result;
+            }
         } else {
-            data.push(response.dataValues);
+            return obj;
         }
-        return data;
     }
     formatErrorResponse(error: TSequelizeError | any): { status: string; data: any } {
         let status;
