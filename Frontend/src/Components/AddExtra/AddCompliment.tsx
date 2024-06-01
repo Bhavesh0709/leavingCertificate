@@ -2,8 +2,8 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { addCompliment } from '../../adapters';
 import { useToast } from '../atoms/CustomToast';
-import { validators } from './constant';
 import { Compliment } from './types';
+import { validationRules } from './commonValidation';
 
 function AddCompliment() {
     const {
@@ -28,7 +28,6 @@ function AddCompliment() {
             .catch((e) => {
                 displayToast('danger', 'Error while adding birth Info', e);
             });
-        console.log(data);
     };
     const handleReset = () => {
         reset();
@@ -45,6 +44,7 @@ function AddCompliment() {
             .replace(/^./, (str) => str.toUpperCase());
         const colStyling = `col-md-${colW} p-2`;
         const allowValidate = allowValidation !== false;
+        const validationRule = validationRules[fieldName];
         return (
             <div className={colStyling}>
                 <label htmlFor={fieldName} className="form-label">
@@ -52,7 +52,7 @@ function AddCompliment() {
                     {allowValidate ? <span className="text-danger">*</span> : ''}
                 </label>
                 <input
-                    {...register(fieldName, handleInputRegistration(fieldName, allowValidate))}
+                    {...register(fieldName, validationRule)}
                     className="form-control"
                     type={inputType || 'text'}
                     defaultValue={defaultValue || ''}
@@ -70,18 +70,6 @@ function AddCompliment() {
         return null;
     };
 
-    const handleInputRegistration = (fieldName: keyof Compliment, allowValidation: boolean) => {
-        if (allowValidation) {
-            return {
-                required: `${fieldName} is required`,
-                pattern: {
-                    value: validators[fieldName],
-                    message: `Please enter a valid ${fieldName}`
-                }
-            };
-        }
-        return {};
-    };
     return (
         <div>
             <div className="container d-flex justify-content-center">

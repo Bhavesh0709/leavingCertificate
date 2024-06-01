@@ -2,8 +2,8 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { addBirthInfo } from '../../adapters';
 import { useToast } from '../atoms/CustomToast';
-import { validators } from './constant';
 import { BirthDetailsInputs } from './types';
+import { validationRules } from './commonValidation';
 
 function AddBirthPlace() {
     const {
@@ -44,6 +44,7 @@ function AddBirthPlace() {
             .replace(/^./, (str) => str.toUpperCase());
         const colStyling = `col-md-${colW} p-2`;
         const allowValidate = allowValidation !== false;
+        const validationRule = validationRules[fieldName];
         return (
             <div className={colStyling}>
                 <label htmlFor={fieldName} className="form-label">
@@ -51,7 +52,7 @@ function AddBirthPlace() {
                     {allowValidate ? <span className="text-danger">*</span> : ''}
                 </label>
                 <input
-                    {...register(fieldName, handleInputRegistration(fieldName, allowValidate))}
+                    {...register(fieldName, validationRule)}
                     className="form-control"
                     type={inputType || 'text'}
                     defaultValue={defaultValue || ''}
@@ -67,19 +68,6 @@ function AddBirthPlace() {
             return <p className="error-message text-danger">{error.message}</p>;
         }
         return null;
-    };
-
-    const handleInputRegistration = (fieldName: keyof BirthDetailsInputs, allowValidation: boolean) => {
-        if (allowValidation) {
-            return {
-                required: `${fieldName} is required`,
-                pattern: {
-                    value: validators[fieldName],
-                    message: `Please enter a valid ${fieldName}`
-                }
-            };
-        }
-        return {};
     };
 
     return (

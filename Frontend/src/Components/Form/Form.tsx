@@ -9,8 +9,8 @@ import {
     getSheras,
     getUserDetails
 } from '../../adapters';
-import { parseResponse } from '../../utils/common';
-import { getCurrentDate, validators } from './constant';
+import { parseResponse, validationRules } from '../../utils/common';
+import { getCurrentDate } from './constant';
 import { CommonInputs, FieldHeaders, Inputs, InputWithoutValidation } from './types';
 import { useToast } from '../atoms/CustomToast';
 import { useParams } from 'react-router-dom';
@@ -145,19 +145,6 @@ function Form() {
         return null;
     };
 
-    const handleInputRegistration = (fieldName: keyof Inputs, allowValidation: boolean) => {
-        if (allowValidation) {
-            return {
-                required: `${fieldName} is required`,
-                pattern: {
-                    value: validators[fieldName],
-                    message: `Please enter a valid ${fieldName}`
-                }
-            };
-        }
-        return {};
-    };
-
     const renderInput = (
         fieldName: keyof Inputs,
         colW: number,
@@ -168,6 +155,7 @@ function Form() {
         const label = FieldHeaders[fieldName] || '';
         const colStyling = `col-md-${colW} p-2`;
         const allowValidate = allowValidation !== false;
+        const validationRule = validationRules[fieldName];
         return (
             <div className={colStyling}>
                 <label htmlFor={fieldName} className="form-label">
@@ -175,7 +163,7 @@ function Form() {
                     {allowValidate ? <span className="text-danger">*</span> : ''}
                 </label>
                 <input
-                    {...register(fieldName, handleInputRegistration(fieldName, allowValidate))}
+                    {...register(fieldName, validationRule)}
                     className="form-control"
                     type={inputType || 'text'}
                     defaultValue={defaultValue || ''}
@@ -307,7 +295,7 @@ function Form() {
                         <div className="col-md-12 d-flex ">
                             {renderInput('reasonOfLeaving', 4)}
                             {renderDropdown('shera', 4, options.shera, 'shera', 'id')}
-                            {renderDatePicker('schoolLeavingDate', 6)}
+                            {renderDatePicker('schoolLeavingDate', 4)}
                         </div>
 
                         <div className="d-flex justify-content-end">
